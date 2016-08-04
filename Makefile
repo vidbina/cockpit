@@ -18,9 +18,12 @@ LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 build: Dockerfile
 	${DOCKER} build -t "${OWNER}/${PROJ}:${VERSION}" --label "owner=${OWNER}" --label "project=${PROJ}" --force-rm . 
 
-clean: 
-	images=`$(LIST_IMG_IDS_CMD)`
-	${DOCKER} rmi 
+# TODO: Test
+clean:
+	$(eval IMAGES=$(shell ${LIST_IMG_IDS_CMD}))
+	if [ -n "${IMAGES}" ]; then echo ${DOCKER} rmi ${IMAGES}; \
+	else echo ${MSG_NO_IMG}; \
+	fi
 
 list:
 	$(LIST_IMG_CMD)
