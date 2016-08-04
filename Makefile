@@ -7,6 +7,8 @@
 # Run `make list` to list all cockpit containers
 # Run `make clean` to remove all cockpit containers
 
+SHELL=/bin/sh
+
 DOCKER=docker
 
 # Project settings such as the owner handle, the project name, the cockpit
