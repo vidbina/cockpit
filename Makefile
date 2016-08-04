@@ -17,11 +17,13 @@ DOCKER=docker
 include details.mk
 
 LIST_IMG_CMD=${DOCKER} images \
-	-f "label=owner=${OWNER}" -f "label=project=${PROJ}" -a
+	-f "label=owner=${COCKPIT_OWNER}" -f "label=project=${COCKPIT_PROJECT}" -a
 LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 
 build: Dockerfile
-	${DOCKER} build -t "${OWNER}/${PROJ}:${VERSION}" --label "owner=${OWNER}" --label "project=${PROJ}" --force-rm . 
+	${DOCKER} build -t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION}" \
+		--label "owner=${COCKPIT_OWNER}" --label "project=${COCKPIT_PROJECT}" \
+		--force-rm .
 
 # TODO: Test
 clean:
