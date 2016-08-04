@@ -8,11 +8,14 @@
 # Run `make clean` to remove all cockpit containers
 
 DOCKER=docker
-OWNER=vidbina
-PROJ=cockpit
-VERSION=v0.1-alpha
 
-LIST_IMG_CMD=docker images -f "label=owner=${OWNER}" -f "label=project=${PROJ}" -a
+# Project settings such as the owner handle, the project name, the cockpit
+# image version and other details are stored in a seprate file to be included
+# into this Makefile.
+include details.mk
+
+LIST_IMG_CMD=${DOCKER} images \
+	-f "label=owner=${OWNER}" -f "label=project=${PROJ}" -a
 LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 
 build: Dockerfile
