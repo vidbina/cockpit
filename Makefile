@@ -35,4 +35,7 @@ clean:
 list:
 	$(LIST_IMG_CMD)
 
+ssh:
+	${DOCKER} run -it ${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION} /bin/sh
+
 .PHONY: build clean list
