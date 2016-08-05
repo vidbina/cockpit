@@ -6,6 +6,7 @@
 # Run `make build` to build the cockpit container
 # Run `make list` to list all cockpit containers
 # Run `make clean` to remove all cockpit containers
+# Run `make shell` to connect to the cockpit
 
 SHELL=/bin/sh
 
@@ -37,7 +38,16 @@ clean:
 list:
 	$(LIST_IMG_CMD)
 
-ssh:
-	${DOCKER} run -it ${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION} /bin/sh
+ifneq ($(COCKPIT_VERSION), "") # Use $COCKPIT_VERSION as version, if available
+version = $(COCKPIT_VERSION)
+else
+ifneq ($(VERSION), "") # otherwise use $VERSION
+version = $(VERSION)
+else # if all fails, use the "latest" version
+version = latest
+endif
+endif
+shell:
+	${DOCKER} run -it ${COCKPIT_OWNER}/${COCKPIT_PROJECT}:$(version) /bin/sh
 
-.PHONY: build clean list
+.PHONY: build clean list shell
