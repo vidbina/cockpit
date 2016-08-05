@@ -48,6 +48,13 @@ version = latest
 endif
 endif
 shell:
-	${DOCKER} run -it ${COCKPIT_OWNER}/${COCKPIT_PROJECT}:$(version) /bin/sh
+	${DOCKER} run \
+		-e "deep=purple" \
+		-e "AWS_ACCESS_KEY_ID=${COCKPIT_AWS_ACCESS_KEY_ID}" \
+		-e "AWS_SECRET_ACCESS_KEY=${COCKPIT_AWS_SECRET_ACCESS_KEY}" \
+		-e "AWS_DEFAULT_REGION=${COCKPIT_AWS_DEFAULT_REGION}" \
+		-it \
+		${COCKPIT_OWNER}/${COCKPIT_PROJECT}:$(version) \
+		/bin/sh
 
 .PHONY: build clean list shell
