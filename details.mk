@@ -1,3 +1,0 @@
-COCKPIT_OWNER=vidbina
-COCKPIT_PROJECT=cockpit
-COCKPIT_VERSION=v0.1.0-alpha.1
