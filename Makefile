@@ -21,7 +21,9 @@ LIST_IMG_CMD=${DOCKER} images \
 LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 
 build: Dockerfile
-	${DOCKER} build -t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION}" \
+	${DOCKER} build \
+		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION}" \
+		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:latest" \
 		--label "owner=${COCKPIT_OWNER}" --label "project=${COCKPIT_PROJECT}" \
 		--force-rm .
 
