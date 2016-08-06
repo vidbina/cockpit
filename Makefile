@@ -25,6 +25,8 @@ LIST_IMG_CMD=${DOCKER} images ${LIST_FILTER} -a
 LIST_CONTAINER_IDS_CMD=${LIST_CONTAINER_CMD} -q
 LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 
+LIST_IMG_REPTAG_CMD=${LIST_IMG_CMD} --format {{.Repository}}:{{.Tag}}
+
 build: Dockerfile
 	${DOCKER} build \
 		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION}" \
