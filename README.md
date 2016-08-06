@@ -31,6 +31,11 @@ COCKPIT_AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 COCKPIT_AWS_DEFAULT_REGION=X
 ```
 
+The Makefile will start the container and set the [necessary environment
+variables for the AWS CLI tool](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment). You could start the direction manually, but remember to set these
+environment variables, or setup the required configuration files, if you intent
+to use the AWS CLI tool inside the container.
+
 ## Usage
 
 The following commands are meant to be used after completing the setup as
@@ -40,3 +45,8 @@ Run `make build` to build the cockpit container.
 Run `make list` to list all cockpit containers.
 Run `make clean` to remove all cockpit containers.
 Run `make shell` to connect to the cockpit.
+
+## Changelog
+- `v0.1.0-alpha` initial version
+- `v0.1.0-alpha.1` added `openssl`
+- `v0.1.0-alpha.2` added `awscli` (`pip` was added to install `awscli`)
