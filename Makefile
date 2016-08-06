@@ -62,7 +62,6 @@ endif
 endif
 shell:
 	${DOCKER} run \
-		-e "deep=purple" \
 		-e "AWS_ACCESS_KEY_ID=${COCKPIT_AWS_ACCESS_KEY_ID}" \
 		-e "AWS_SECRET_ACCESS_KEY=${COCKPIT_AWS_SECRET_ACCESS_KEY}" \
 		-e "AWS_DEFAULT_REGION=${COCKPIT_AWS_DEFAULT_REGION}" \
