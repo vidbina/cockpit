@@ -34,12 +34,19 @@ build: Dockerfile
 		--label "owner=${COCKPIT_OWNER}" --label "project=${COCKPIT_PROJECT}" \
 		--force-rm .
 
-# TODO: Test
-clean:
-	$(eval IMAGES=$(shell ${LIST_IMG_IDS_CMD}))
-	if [ -n "${IMAGES}" ]; then echo ${DOCKER} rmi ${IMAGES}; \
-	else echo ${MSG_NO_IMG}; \
+clean-containers:
+	$(eval CONTAINERS=$(shell ${LIST_CONTAINER_IDS_CMD}))
+	if [ -n "${CONTAINERS}" ]; then ${DOCKER} rm ${CONTAINERS}; \
+	else echo "No containers to cleanup"; \
 	fi
+
+clean-images:
+	$(eval IMAGES=$(shell ${LIST_IMG_REPTAG_CMD}))
+	if [ -n "${IMAGES}" ]; then ${DOCKER} rmi ${IMAGES}; \
+	else echo "No images to cleanup"; \
+	fi
+
+clean: clean-containers clean-images
 
 list:
 	$(LIST_IMG_CMD)
@@ -63,4 +70,4 @@ shell:
 		${COCKPIT_OWNER}/${COCKPIT_PROJECT}:$(version) \
 		/bin/sh
 
-.PHONY: build clean list shell
+.PHONY: build clean clean-containers clean-images list shell
