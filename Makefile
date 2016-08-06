@@ -17,8 +17,12 @@ DOCKER=docker
 # into this Makefile.
 include details.mk
 
-LIST_IMG_CMD=${DOCKER} images \
-	-f "label=owner=${COCKPIT_OWNER}" -f "label=project=${COCKPIT_PROJECT}" -a
+LIST_FILTER=-f "label=owner=${COCKPIT_OWNER}" \
+	-f "label=project=${COCKPIT_PROJECT}"
+LIST_CONTAINER_CMD=${DOCKER} ps ${LIST_FILTER} -a
+LIST_IMG_CMD=${DOCKER} images ${LIST_FILTER} -a
+
+LIST_CONTAINER_IDS_CMD=${LIST_CONTAINER_CMD} -q
 LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 
 build: Dockerfile
