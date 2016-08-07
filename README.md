@@ -16,16 +16,26 @@ playbooks.
 
 ## Setup
 
-Produce a `*details.mk` file in the project's root containing the settings you
-need for your cockpit and ensure this file is included in the Makefile. In my
-case the `*details.mk` was simply called `details.mk` and is included in the
-Makefile by default :wink:.
+Ensure the `image.mk` file exists in the project's root. The
+`image.mk` file includes the `VERSION`, `project.mk` and `credentials.mk`
+files.
+
+Within the root of the project a `VERSION` file is expected to contain the tag
+of the image to produce. It is recommended to bump this version every time a
+change to the Dockerfile is made.
+
+The `project.mk` file should list the owner and project name in the form:
 
 ```Makefile
-COCKPIT_OWNER=vidbina
-COCKPIT_PROJECT=cockpit
-COCKPIT_VERSION=v0.1.0-alpha.2
-COCKPIT_AWS_PROFILE=X
+COCKPIT_OWNER = vidbina
+COCKPIT_PROJECT = cockpit
+```
+
+The `credentials.mk` file should include the `COCKPIT_AWS_ACCESS_KEY_ID`,
+`COCKPIT_AWS_SECRET_ACCESS_KEY` and `COCKPIT_AWS_DEFAULT_REGION` environment
+variables in the following manner:
+
+```Makefile
 COCKPIT_AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXXXX
 COCKPIT_AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 COCKPIT_AWS_DEFAULT_REGION=X

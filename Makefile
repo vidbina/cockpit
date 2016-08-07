@@ -15,7 +15,7 @@ DOCKER=docker
 # Project settings such as the owner handle, the project name, the cockpit
 # image version and other details are stored in a seprate file to be included
 # into this Makefile.
-include details.mk
+include image.mk
 
 LIST_FILTER=-f "label=owner=${COCKPIT_OWNER}" \
 	-f "label=project=${COCKPIT_PROJECT}"
@@ -27,20 +27,20 @@ LIST_IMG_IDS_CMD=${LIST_IMG_CMD} -q
 
 LIST_IMG_REPTAG_CMD=${LIST_IMG_CMD} --format {{.Repository}}:{{.Tag}}
 
-build: Dockerfile
+build: Dockerfile image.mk project.mk
 	${DOCKER} build \
 		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION}" \
 		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:latest" \
 		--label "owner=${COCKPIT_OWNER}" --label "project=${COCKPIT_PROJECT}" \
 		--force-rm .
 
-clean-containers:
+clean-containers: project.mk
 	$(eval CONTAINERS=$(shell ${LIST_CONTAINER_IDS_CMD}))
 	if [ -n "${CONTAINERS}" ]; then ${DOCKER} rm ${CONTAINERS}; \
 	else echo "No containers to cleanup"; \
 	fi
 
-clean-images:
+clean-images: project.mk
 	$(eval IMAGES=$(shell ${LIST_IMG_REPTAG_CMD}))
 	if [ -n "${IMAGES}" ]; then ${DOCKER} rmi ${IMAGES}; \
 	else echo "No images to cleanup"; \
@@ -48,7 +48,7 @@ clean-images:
 
 clean: clean-containers clean-images
 
-list:
+list: project.mk
 	$(LIST_IMG_CMD)
 
 ifneq ($(COCKPIT_VERSION), "") # Use $COCKPIT_VERSION as version, if available
@@ -60,7 +60,7 @@ else # if all fails, use the "latest" version
 version = latest
 endif
 endif
-shell:
+shell: image.mk project.mk credentials.mk
 	${DOCKER} run \
 		-e "AWS_ACCESS_KEY_ID=${COCKPIT_AWS_ACCESS_KEY_ID}" \
 		-e "AWS_SECRET_ACCESS_KEY=${COCKPIT_AWS_SECRET_ACCESS_KEY}" \
