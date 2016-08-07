@@ -31,6 +31,7 @@ build: Dockerfile image.mk project.mk
 	${DOCKER} build \
 		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:${COCKPIT_VERSION}" \
 		-t "${COCKPIT_OWNER}/${COCKPIT_PROJECT}:latest" \
+		--build-arg KUBE_AWS_SIG="${COCKPIT_SIG_KUBE_AWS}" \
 		--label "owner=${COCKPIT_OWNER}" --label "project=${COCKPIT_PROJECT}" \
 		--force-rm .
 
