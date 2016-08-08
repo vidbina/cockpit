@@ -20,6 +20,14 @@ Ensure the `image.mk` file exists in the project's root. The
 `image.mk` file includes the `VERSION`, `project.mk` and `credentials.mk`
 files.
 
+The `COCKPIT_KEY_KUBE_AWS` variable contains the identifier of the public key
+which is used to verify the validity of the CoreOS kube-aws tarball, while
+`COCKPIT_SIG_KUBE_AWS` contains the fingerprint of the public key. These
+tokens are utilized to verify the downloaded tarball has actually been signed
+ by CoreOS's private key. Double-check
+ https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html to ensure
+ that these values are valid.
+
 Within the root of the project a `VERSION` file is expected to contain the tag
 of the image to produce. It is recommended to bump this version every time a
 change to the Dockerfile is made.
@@ -60,3 +68,4 @@ Run `make shell` to connect to the cockpit.
 - `v0.1.0-alpha` initial version
 - `v0.1.0-alpha.1` added `openssl`
 - `v0.1.0-alpha.2` added `awscli` (`pip` was added to install `awscli`)
+- `v0.1.0-alpha.3` added CoreOS's `kube-aws` (`gnupg` was added for `gpg2`)
