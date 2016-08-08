@@ -32,12 +32,19 @@ Within the root of the project a `VERSION` file is expected to contain the tag
 of the image to produce. It is recommended to bump this version every time a
 change to the Dockerfile is made.
 
-The `project.mk` file should list the owner and project name in the form:
+The `project.mk` file should list the owner, project name and infrastructure
+description path in the form:
 
 ```Makefile
 COCKPIT_OWNER = vidbina
 COCKPIT_PROJECT = cockpit
+COCKPIT_WORKDIR = /path/to/infra
 ```
+
+The `COCKPIT_WORKDIR` contains the path to the directory on the host in which
+all relevant infrastructure files will be stored. This would for example
+include declarative artifacts to be used in combination with Ansible,
+CloudFormation or Kubernetes.
 
 The `credentials.mk` file should include the `COCKPIT_AWS_ACCESS_KEY_ID`,
 `COCKPIT_AWS_SECRET_ACCESS_KEY` and `COCKPIT_AWS_DEFAULT_REGION` environment

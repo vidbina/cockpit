@@ -12,3 +12,5 @@ RUN gpg2 --keyserver pgp.mit.edu --recv-key $KUBE_AWS_KEY \
 &&  tar zxvf /tmp/kube-aws.tar.gz -C /tmp \
 &&  mv /tmp/linux-amd64/kube-aws /usr/local/bin/kube-aws \
 &&  rm -rf /tmp/kube-aws.tar.gz* /tmp/linux-amd64
+VOLUME /infra
+WORKDIR /infra

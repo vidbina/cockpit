@@ -68,6 +68,7 @@ shell: image.mk project.mk credentials.mk
 		-e "AWS_ACCESS_KEY_ID=${COCKPIT_AWS_ACCESS_KEY_ID}" \
 		-e "AWS_SECRET_ACCESS_KEY=${COCKPIT_AWS_SECRET_ACCESS_KEY}" \
 		-e "AWS_DEFAULT_REGION=${COCKPIT_AWS_DEFAULT_REGION}" \
+		-v ${COCKPIT_WORKDIR}:/infra \
 		-it \
 		${COCKPIT_OWNER}/${COCKPIT_PROJECT}:$(version) \
 		/bin/sh
